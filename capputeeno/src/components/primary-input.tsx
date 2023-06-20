@@ -1,0 +1,41 @@
+import { styled } from "styled-components";
+import { SearchLoupe } from "./search-loupe";
+import { InputHTMLAttributes } from "react";
+
+export const PrimaryInput = styled.input`
+    width: 352px;
+    padding: 10px 16px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-dark);
+    border: none;
+`
+
+const InputContainer = styled.div`
+    position: relative;
+    width: 352px;
+
+    svg {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+`
+
+interface InputProps extends InputHTMLAttributes<HTMLIFrameElement> {
+
+}
+
+export function PrimaryInputWSearchLoupe(props: InputProps){
+    return(
+        <InputContainer>
+            <PrimaryInput {...props} />
+            <SearchLoupe />
+        </InputContainer>
+    )
+}
