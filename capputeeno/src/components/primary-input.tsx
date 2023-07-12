@@ -28,13 +28,14 @@ const InputContainer = styled.div`
 `
 
 interface InputProps extends InputHTMLAttributes<HTMLIFrameElement> {
-
+    value: string,
+    handleChange: (value: string) => void
 }
 
 export function PrimaryInputWSearchLoupe(props: InputProps){
     return(
         <InputContainer>
-            <PrimaryInput {...props} />
+            <PrimaryInput onChange={(event) => props.handleChange(event.target.value)} {...props} />
             <SearchLoupe />
         </InputContainer>
     )
