@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { ShoppingBag } from "./shopping-bag";
+import { ShoppingBag } from "./icons/shopping-bag-icon";
 import { styled } from "styled-components";
 
 
