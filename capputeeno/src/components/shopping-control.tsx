@@ -19,12 +19,12 @@ const Container = styled.div`
 `
 
 export function ShoppingControl(){
-    const {value} = useLocalStorage('shopp-items')
+    const {value} = useLocalStorage('shopp-items', [])
 
     return(
         <Container>
            <ShoppingBag />
-            {value.length && <ShoppingCount>{value.length}</ShoppingCount>}
+            {value.length > 0 && <ShoppingCount>{value.length}</ShoppingCount>}
         </Container>
     )
 }
