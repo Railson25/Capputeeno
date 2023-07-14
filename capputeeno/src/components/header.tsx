@@ -26,6 +26,8 @@ const TagHeader = styled.header`
     justify-content: center;
     gap: 24px;
   }
+
+
   @media (min-width: ${props => props.theme.desktopBreakpoint}) {
     padding: 20px 160px;
   }
