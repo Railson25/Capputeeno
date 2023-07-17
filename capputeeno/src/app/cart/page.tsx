@@ -15,6 +15,7 @@ const Container = styled.div`
     gap: 32px;
     justify-content: center;
     flex-direction: column;
+    min-height: 500px;
 
     @media(min-width: ${props => props.theme.desktopBreakpoint}){
         flex-direction: row;
@@ -61,6 +62,7 @@ const CartResultContainer = styled.div`
     background-color: var(--shapes-light);
     padding: 16px 24px;
     min-width: 352px;
+    position: relative;
 
     h3 {
         font-weight: 600;
@@ -94,6 +96,27 @@ const ShopBtn = styled.button`
     border: none;
     margin-top: 40px;
     cursor: pointer;
+`
+
+const LinksContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* border: 1px solid red; */
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    a {
+        
+
+        color: var(--textos-dark-textos-apoio, #737380);
+
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 150%;
+        text-decoration-line: underline;
+        text-transform: uppercase;
+    }
 `
 
 export default function CartPage() {
@@ -171,6 +194,12 @@ export default function CartPage() {
                         }</p>
                     </TotalItem>
                     <ShopBtn>Finalizar a compra</ShopBtn>
+                    <LinksContainer>
+                        <a>Ajuda</a>
+                        <a>reembolsos</a>
+                        <a>entregas e frete</a>
+                        <a>trocas e devoluções</a>
+                    </LinksContainer>
                 </CartResultContainer>
             </Container>
         </DefaultPageLayout>
