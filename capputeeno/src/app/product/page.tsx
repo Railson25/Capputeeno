@@ -5,6 +5,7 @@ import { DefaultPageLayout } from "@/components/default-page-layout"
 import { ShoppingIcon } from "@/components/icons/shopping-icon"
 import { useProduct } from "@/hooks/useProduct"
 import { formatPrice } from "@/utils/format-price"
+import { useRouter } from "next/navigation"
 
 
 import { styled } from "styled-components"
@@ -109,6 +110,7 @@ const ProductInfo = styled.div`
 
 export default function Product({searchParams}: {searchParams: {id: string}}) {
     const {data} = useProduct(searchParams.id)
+    const router = useRouter()
 
     const handleAddToCart = () => {
         let cartItems = localStorage.getItem('shopp-items')
@@ -127,6 +129,7 @@ export default function Product({searchParams}: {searchParams: {id: string}}) {
             const newCart = [{ ...data, quantity: 1, id: searchParams.id}]
             localStorage.setItem('shopp-items', JSON.stringify(newCart))
         }
+        router.push("/cart")
     }
 
     return(
