@@ -3,23 +3,27 @@
 import { BackButton } from "@/components/back-button";
 import { CartItem } from "@/components/cart/cart-item";
 import { DefaultPageLayout } from "@/components/default-page-layout";
+import { Divider } from "@/components/divider";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { ProductInCart } from "@/types/product";
+import { Product, ProductInCart } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import { styled } from "styled-components";
 
 
 const Container = styled.div`
     display: flex;
-    align-items: flex-start;
+    gap: 32px;
     justify-content: center;
     flex-direction: column;
+
+    @media(min-width: ${props => props.theme.desktopBreakpoint}){
+        flex-direction: row;
+    }
 `
 
 const CartListContainer = styled.div`
-    margin-top: 24px;
-
     h3{
+        margin-top: 24px;
         font-size: 24px;
         font-weight: 500;
         text-transform: uppercase;
@@ -48,6 +52,50 @@ const CartList = styled.ul`
     margin-top: 24px;
 `
 
+
+const CartResultContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: var(--shapes-light);
+    padding: 16px 24px;
+    min-width: 352px;
+
+    h3 {
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--shapes-dark);
+        text-transform: uppercase;
+        line-height: 150%;
+        margin-bottom: 30px;
+    }
+`
+
+const TotalItem = styled.div<{isBold: boolean}>`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: ${props => props.isBold ? '600' : '400'};
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--text-dark-2);
+    margin-bottom: 12px;
+`
+
+const ShopBtn = styled.button`
+    color: var(--shapes-light);
+    border-radius: 4px;
+    background-color: var(--success-color);
+    padding: 12px;
+    text-transform: uppercase;
+    width: 100%;
+    border: none;
+    margin-top: 40px;
+    cursor: pointer;
+`
+
 export default function CartPage() {
     const {value, updateLocalStorage} = useLocalStorage<ProductInCart[]>("shopp-items", [])
 
@@ -56,6 +104,8 @@ export default function CartPage() {
     }
 
     const carTotal = formatPrice(calculateTotal(value))
+    const carTotalWithDelivery = formatPrice(calculateTotal(value) + 4000)
+    const conditionToFreeDevilery =  carTotal >= formatPrice(90000) || carTotal <= formatPrice(999999999999999999)
 
     const handleUpdateQuantity = (id: string, quantity: number) => {
         const newValue = value.map(item => {
@@ -73,11 +123,12 @@ export default function CartPage() {
         updateLocalStorage(newValue)
     }
 
+    
     return(
         <DefaultPageLayout>
             <Container>
-                <BackButton navigate="/" />
                 <CartListContainer>
+                <BackButton navigate="/" />
                     <h3>Seu carrinho</h3>
                     <p>
                     Total ({value.length}) <span> {carTotal}</span>
@@ -93,6 +144,34 @@ export default function CartPage() {
                     />)}
                     </CartList>
                 </CartListContainer>
+
+                <CartResultContainer>
+                    <h3>Resumo do pedido</h3>    
+                    <TotalItem isBold={false}>
+                        <p>Subtotal de produtos</p>
+                        <p>{carTotal}</p>
+                    </TotalItem>
+                    <TotalItem isBold={false}>
+                        <p>Entrega</p>
+                        <p>{
+                            conditionToFreeDevilery
+                            ? 'Frete Grátis'
+                            : formatPrice(4000)
+                        }</p>
+                    </TotalItem>
+
+                    <Divider />
+                    
+                    <TotalItem isBold>
+                        <p>Entrega</p>
+                        <p>{
+                            conditionToFreeDevilery
+                            ? carTotal
+                            : carTotalWithDelivery
+                        }</p>
+                    </TotalItem>
+                    <ShopBtn>Finalizar a compra</ShopBtn>
+                </CartResultContainer>
             </Container>
         </DefaultPageLayout>
     )
