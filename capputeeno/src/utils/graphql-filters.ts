@@ -40,3 +40,20 @@ export const mountQuery = (type: FilterType, priority: PriorityType) => {
           }
         `
 }
+
+// Coemecei mas não consegui finalizar.
+export const paginationFilter = () => {
+ 
+  return `
+  query {
+    allProducts(page: , perPage: 12) {
+      id
+      name
+      price_in_cents
+      category
+      sales
+      
+    }
+  }
+  `
+}

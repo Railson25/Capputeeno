@@ -2,6 +2,7 @@
 
 import { DefaultPageLayout } from '@/components/default-page-layout'
 import { FilterBar } from '@/components/filter-bar'
+import { Pagination } from '@/components/pagination'
 import { ProductsList } from '@/components/products-list'
 import { styled } from 'styled-components'
 
@@ -19,6 +20,7 @@ export default function Home() {
     <DefaultPageLayout>
       <PageWrapper>
         <FilterBar />
+        <Pagination />
         <ProductsList/>
       </PageWrapper>
     </DefaultPageLayout>
